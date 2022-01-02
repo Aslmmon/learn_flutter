@@ -1,12 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learn_flutter/BlocLearn/simpleBlock/CounterViewModel.dart';
 import 'package:learn_flutter/networking/NetworkingApp.dart';
 
 import 'BlocLearn/simpleBlock/CounterBlock.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => CounterViewModel())],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
