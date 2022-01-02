@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:learn_flutter/networking/NetworkingApp.dart';
+
+import 'BlocLearn/simpleBlock/CounterBlock.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: NetworkingApp(),
+      home: CounterBlock(),
     );
   }
 }
