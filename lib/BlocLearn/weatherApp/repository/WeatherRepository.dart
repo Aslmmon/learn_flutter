@@ -14,8 +14,7 @@ enum WeatherCondition {
 class WeatherFailure implements Exception {}
 
 class WeatherRepository {
-  WeatherRepository({MetaWeatherApiClient? weatherApiClient})
-      : _weatherApiClient = weatherApiClient ?? MetaWeatherApiClient();
+  WeatherRepository({MetaWeatherApiClient? weatherApiClient}) : _weatherApiClient = weatherApiClient ?? MetaWeatherApiClient();
 
   final MetaWeatherApiClient _weatherApiClient;
 

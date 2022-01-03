@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/BlocLearn/simpleBlock/CounterViewModel.dart';
-import 'package:learn_flutter/networking/NetworkingApp.dart';
-
-import 'BlocLearn/simpleBlock/CounterBlock.dart';
+import 'package:learn_flutter/mealsApp/presentation/home/Home.dart';
+import 'package:learn_flutter/mealsApp/presentation/home/HomeCubit.dart';
+import 'package:learn_flutter/mealsApp/presentation/home/HomeState.dart';
 
 void main() {
   runApp(MultiBlocProvider(
@@ -33,7 +31,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: CounterBlock(),
+      home: MultiBlocProvider(providers: [
+        BlocProvider(create: (context) => HomeCubit(InitialState()))
+      ], child: Home()),
     );
   }
 }
