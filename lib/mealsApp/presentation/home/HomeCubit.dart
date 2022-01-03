@@ -15,7 +15,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(LoadingState());
       final movies = await _mealsRepository.getMealsCategories();
       emit(LoadedState(movies));
-    } catch (e) {
+    } catch (e){
       emit(ErrorState(e.toString()));
     }
   }

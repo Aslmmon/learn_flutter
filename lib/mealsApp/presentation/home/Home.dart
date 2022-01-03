@@ -19,12 +19,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-        if (state is LoadingState) return Center(child: const CircularProgressIndicator());
 
+        if (state is LoadingState) return const Center(child: CircularProgressIndicator());
         if (state is ErrorState) {
           return  Center(
-          child: Text(state.error),
-        );
+            child: Text(state.error),
+          );
         }
         if (state is LoadedState) {
           final data = state.meals;
@@ -39,7 +39,8 @@ class _HomeState extends State<Home> {
               ),
             ),
           );
-        }else {
+        }
+        else {
           return const Center(child: Text("Heello"));
         }
       }),
@@ -50,4 +51,9 @@ class _HomeState extends State<Home> {
   void initState() {
     context.read<HomeCubit>().getMealsCategories();
   }
+
+
+
+
+
 }
