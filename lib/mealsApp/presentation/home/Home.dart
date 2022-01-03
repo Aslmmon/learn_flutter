@@ -20,6 +20,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
         if (state is LoadingState) return Center(child: const CircularProgressIndicator());
+
         if (state is ErrorState) {
           return  Center(
           child: Text(state.error),
