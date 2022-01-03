@@ -1,3 +1,4 @@
+import 'package:learn_flutter/mealsApp/data/model/meals_categories.dart';
 import 'package:learn_flutter/mealsApp/data/model/meals_categories_response.dart';
 import 'package:learn_flutter/mealsApp/data/network/ApiClient.dart';
 
@@ -7,7 +8,10 @@ class MealsRepository {
   final ApiClient _apiClient;
 
 
-  Future<MealsCategoriesResponse> getMealsCategories() async =>
-      await _apiClient.getMealsCategories();
+  Future<MealsCategoriesResponse> getMealsCategories() async => await _apiClient.getMealsCategories();
+  Future<MealsCategories> getCategories() async => await _apiClient.getCategories();
+
+ // Future<MealsCategoriesResponse> getMealsCategories() async => await _apiClient.getMealsCategories();
+
 
 }

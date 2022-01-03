@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:learn_flutter/BlocLearn/simpleBlock/CounterViewModel.dart';
+import 'package:learn_flutter/mealsApp/Constants.dart';
+import 'package:learn_flutter/mealsApp/data/model/meals_categories_response.dart';
+import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesCubit.dart';
+import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesScreen.dart';
+import 'package:learn_flutter/mealsApp/presentation/chooser/chooser.dart';
 import 'package:learn_flutter/mealsApp/presentation/home/Home.dart';
 import 'package:learn_flutter/mealsApp/presentation/home/HomeCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/home/HomeState.dart';
+import 'mealsApp/presentation/categories/CategoriesState.dart';
 
 void main() {
-  runApp(MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => CounterViewModel())],
-      child: MyApp()));
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider(create: (context) => HomeCubit(InitialState())),
+    BlocProvider(create: (context) => CategoriesCubit(InitialStateCategories()))
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,6 +25,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: chooser_route,
+      routes: {
+        chooser_route: (context) => const Chooser(),
+        home_route: (context) => const Home(),
+        categories_route: (context) => const CategoriesScreen(),
+      },
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -31,9 +43,6 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MultiBlocProvider(providers: [
-        BlocProvider(create: (context) => HomeCubit(InitialState()))
-      ], child: Home()),
     );
   }
 }
