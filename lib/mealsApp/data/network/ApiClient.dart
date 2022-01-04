@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:learn_flutter/mealsApp/data/model/filter_response.dart';
+import 'package:learn_flutter/mealsApp/data/model/ingredient_response.dart';
 import 'package:learn_flutter/mealsApp/data/model/meals_area.dart';
 import 'package:learn_flutter/mealsApp/data/model/meals_categories.dart';
 import 'package:learn_flutter/mealsApp/data/model/meals_categories_response.dart';
@@ -40,9 +41,7 @@ class ApiClient {
       <String, String>{'c': "list"},
     );
     final categoriesResponse = await _httpClient.get(categoriesRequest);
-
     var mealsCategoriesJson = CheckForResponse(categoriesResponse);
-
     return MealsCategories.fromJson(mealsCategoriesJson);
   }
 
@@ -56,8 +55,16 @@ class ApiClient {
     return MealsArea.fromJson(mealsCategoriesJson);
   }
 
-  Future<FilterResponse> getFilterData(COOK cookType,String filterQuery) async {
+  Future<IngredientResponse> getIngredients() async {
+    final areaRequest = Uri.https(_baseUrl, '/api/json/v1/1/list.php',
+        <String, String>{'i': "list"});
+    final areaResponse = await _httpClient.get(areaRequest);
+    var mealsCategoriesJson = CheckForResponse(areaResponse);
+    return IngredientResponse.fromJson(mealsCategoriesJson);
+  }
 
+
+  Future<FilterResponse> getFilterData(COOK cookType,String filterQuery) async {
     final areaRequest = Uri.https(_baseUrl, '/api/json/v1/1/filter.php',
         <String, String>{'${cookType.name}': filterQuery});
     final areaResponse = await _httpClient.get(areaRequest);

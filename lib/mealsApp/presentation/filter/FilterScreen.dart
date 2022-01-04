@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesScreen.dart';
 import 'package:learn_flutter/mealsApp/presentation/chooser/chooser.dart';
 import 'package:learn_flutter/mealsApp/presentation/filter/FilterCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/filter/FilterStates.dart';
@@ -14,6 +15,8 @@ class FilterScreen extends StatefulWidget {
 class _FilterScreenState extends State<FilterScreen> {
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       body: BlocBuilder<FilterCubit, FilterState>(builder: (context, state) {
 
@@ -44,9 +47,12 @@ class _FilterScreenState extends State<FilterScreen> {
     );
   }
 
-  @override
-  void initState() {
-    context.read<FilterCubit>().getFilters(COOK.CATEGORIES, "Seafood");
-  }
 
+
+  @override
+  void didChangeDependencies() {
+    final args = ModalRoute.of(context)!.settings.arguments as DataToBeSent;
+    context.read<FilterCubit>().getFilters(args.cook, args.id);
+
+  }
 }

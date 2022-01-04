@@ -33,7 +33,7 @@ class Chooser extends StatelessWidget {
           Navigator.of(context).pushNamed(areas_route);
         }
         if(cookType.id==COOK.INGREDIENTS.value){
-         // Navigator.of(context).pushNamed(categories_route);
+          Navigator.of(context).pushNamed(ingredients_route);
         }
 
       },

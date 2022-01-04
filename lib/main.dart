@@ -11,17 +11,21 @@ import 'package:learn_flutter/mealsApp/presentation/filter/FilterScreen.dart';
 import 'package:learn_flutter/mealsApp/presentation/home/Home.dart';
 import 'package:learn_flutter/mealsApp/presentation/home/HomeCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/home/HomeState.dart';
+import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientCubit.dart';
+import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientsScreen.dart';
 import 'mealsApp/presentation/area/AreaCubit.dart';
 import 'mealsApp/presentation/categories/CategoriesState.dart';
 import 'mealsApp/presentation/filter/FilterStates.dart';
+import 'mealsApp/presentation/ingredients/IngredientState.dart';
 
 void main() {
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => HomeCubit(InitialState())),
-    BlocProvider(create: (context) => CategoriesCubit(InitialStateCategories())),
+    BlocProvider(
+        create: (context) => CategoriesCubit(InitialStateCategories())),
     BlocProvider(create: (context) => FilterCubit(InitialStateFilters())),
-    BlocProvider(create: (context) => AreaCubit(InitialStateArea()))
-
+    BlocProvider(create: (context) => AreaCubit(InitialStateArea())),
+    BlocProvider(create: (context) => IngredientCubit(InitialStateIngredient()))
   ], child: MyApp()));
 }
 
@@ -40,7 +44,7 @@ class MyApp extends StatelessWidget {
         categories_route: (context) => const CategoriesScreen(),
         filters_route: (context) => const FilterScreen(),
         areas_route: (context) => const AreaScreen(),
-
+        ingredients_route: (context) => const IngredientScreen()
       },
       theme: ThemeData(
         // This is the theme of your application.

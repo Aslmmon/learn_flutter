@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/mealsApp/Constants.dart';
-import 'package:learn_flutter/mealsApp/presentation/area/AreaCubit.dart';
-import 'package:learn_flutter/mealsApp/presentation/area/AreaState.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesScreen.dart';
 import 'package:learn_flutter/mealsApp/presentation/chooser/chooser.dart';
+import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientCubit.dart';
+import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientState.dart';
 
-class AreaScreen extends StatefulWidget {
-  const AreaScreen({Key? key}) : super(key: key);
+class IngredientScreen extends StatefulWidget {
+  const IngredientScreen({Key? key}) : super(key: key);
 
   @override
-  _AreaScreen createState() => _AreaScreen();
+  _IngredientScreen createState() => _IngredientScreen();
 }
 
-class _AreaScreen extends State<AreaScreen> {
+class _IngredientScreen extends State<IngredientScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<AreaCubit, AreaState>(
+      body: BlocBuilder<IngredientCubit, IngredientState>(
           builder: (context, state) {
             if (state is LoadingState) {
               return const Center(child: CircularProgressIndicator());
@@ -35,10 +35,10 @@ class _AreaScreen extends State<AreaScreen> {
                   child: ListTile(
                       title: GestureDetector(
                           onTap: (){
-                            DataToBeSent dataToBeSent  = DataToBeSent(id: data.meals![index].strArea,cook: COOK.AREAS);
+                            DataToBeSent dataToBeSent  = DataToBeSent(id: data.meals![index].strIngredient,cook: COOK.INGREDIENTS);
                             Navigator.of(context).pushNamed(filters_route,arguments: dataToBeSent);
                           },
-                          child: Text(data.meals![index].strArea!))),
+                          child: Text(data.meals![index].strIngredient!))),
                 ),
               );
             } else {
@@ -50,6 +50,6 @@ class _AreaScreen extends State<AreaScreen> {
 
   @override
   void initState() {
-    context.read<AreaCubit>().getAreas();
+    context.read<IngredientCubit>().getIngredients();
   }
 }

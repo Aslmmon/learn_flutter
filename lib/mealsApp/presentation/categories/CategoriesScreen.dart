@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/mealsApp/Constants.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesState.dart';
+import 'package:learn_flutter/mealsApp/presentation/chooser/chooser.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({Key? key}) : super(key: key);
@@ -33,7 +34,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               child: ListTile(
                   title: GestureDetector(
                     onTap: (){
-                      Navigator.of(context).pushNamed(filters_route);
+                      DataToBeSent dataToBeSent  = DataToBeSent(id: data.meals![index].strCategory,cook: COOK.CATEGORIES);
+                      Navigator.of(context).pushNamed(filters_route,arguments: dataToBeSent);
                     },
                       child: Text(data.meals![index].strCategory!))),
             ),
@@ -49,4 +51,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   void initState() {
     context.read<CategoriesCubit>().getCategories();
   }
+}
+class DataToBeSent {
+  String? id="";
+  COOK cook;
+  DataToBeSent({required this.id , required this.cook});
+
 }

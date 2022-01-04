@@ -1,4 +1,5 @@
 import 'package:learn_flutter/mealsApp/data/model/filter_response.dart';
+import 'package:learn_flutter/mealsApp/data/model/ingredient_response.dart';
 import 'package:learn_flutter/mealsApp/data/model/meals_area.dart';
 import 'package:learn_flutter/mealsApp/data/model/meals_categories.dart';
 import 'package:learn_flutter/mealsApp/data/model/meals_categories_response.dart';
@@ -16,5 +17,7 @@ class MealsRepository {
   Future<MealsArea> getMealsArea() async => await _apiClient.getAreas();
 
   Future<FilterResponse> getFilters(cookType,filterQuery) async => await _apiClient.getFilterData(cookType, filterQuery);
+  Future<IngredientResponse> getIngredients() async => await _apiClient.getIngredients();
+
 
 }
