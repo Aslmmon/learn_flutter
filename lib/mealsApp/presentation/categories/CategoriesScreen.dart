@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learn_flutter/mealsApp/Constants.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesState.dart';
 
@@ -16,8 +17,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     return Scaffold(
       body: BlocBuilder<CategoriesCubit, CategoriesState>(
           builder: (context, state) {
-        if (state is LoadingState)
+        if (state is LoadingState) {
           return const Center(child: CircularProgressIndicator());
+        }
         if (state is ErrorState) {
           return Center(
             child: Text(state.error),
@@ -28,7 +30,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           return ListView.builder(
             itemCount: data.meals!.length,
             itemBuilder: (context, index) => Card(
-              child: ListTile(title: Text(data.meals![index].strCategory!)),
+              child: ListTile(
+                  title: GestureDetector(
+                    onTap: (){
+                      Navigator.of(context).pushNamed(filters_route);
+                    },
+                      child: Text(data.meals![index].strCategory!))),
             ),
           );
         } else {
@@ -41,6 +48,5 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   void initState() {
     context.read<CategoriesCubit>().getCategories();
-
   }
 }

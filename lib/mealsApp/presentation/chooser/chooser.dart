@@ -16,17 +16,24 @@ class Chooser extends StatelessWidget {
 
   List<CookType> provideListOfCookType() {
     List<CookType> list = [];
-    list.add(CookType("Categories", 1));
-    list.add(CookType("Area", 2));
-    list.add(CookType("Ingredients", 3));
+
+    list.add(CookType("Categories", COOK.CATEGORIES.value));
+    list.add(CookType("Area", COOK.AREAS.value));
+    list.add(CookType("Ingredients", COOK.INGREDIENTS.value));
     return list;
   }
 
   Widget CardCookType(CookType cookType, BuildContext context) {
     return GestureDetector(
       onTap: (){
-        if(cookType.id==1){
+        if(cookType.id==COOK.CATEGORIES.value){
           Navigator.of(context).pushNamed(categories_route);
+        }
+        if(cookType.id==COOK.AREAS.value){
+          Navigator.of(context).pushNamed(areas_route);
+        }
+        if(cookType.id==COOK.INGREDIENTS.value){
+         // Navigator.of(context).pushNamed(categories_route);
         }
 
       },
@@ -52,4 +59,24 @@ class CookType {
 
   final String title;
   final int id;
+}
+enum COOK {CATEGORIES ,AREAS , INGREDIENTS}
+extension COOKEXT on COOK {
+  static const _values = [1, 2, 3];
+
+  int get value => _values[this.index];
+
+  String? get name {
+    switch (this) {
+      case COOK.AREAS:
+        return "a";
+      case COOK.CATEGORIES:
+        return "c";
+      case COOK.INGREDIENTS:
+        return "i";
+      default:
+        return null;
+    }
+  }
+
 }

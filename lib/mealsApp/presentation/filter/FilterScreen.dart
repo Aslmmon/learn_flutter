@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:learn_flutter/mealsApp/presentation/home/HomeCubit.dart';
-import 'package:learn_flutter/mealsApp/presentation/home/HomeState.dart';
+import 'package:learn_flutter/mealsApp/presentation/chooser/chooser.dart';
+import 'package:learn_flutter/mealsApp/presentation/filter/FilterCubit.dart';
+import 'package:learn_flutter/mealsApp/presentation/filter/FilterStates.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class FilterScreen extends StatefulWidget {
+  const FilterScreen({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
-
-
+  _FilterScreenState createState() => _FilterScreenState();
 }
 
-class _HomeState extends State<Home> {
-
-
+class _FilterScreenState extends State<FilterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      body: BlocBuilder<FilterCubit, FilterState>(builder: (context, state) {
 
         if (state is LoadingState) return const Center(child: CircularProgressIndicator());
         if (state is ErrorState) {
@@ -29,12 +26,12 @@ class _HomeState extends State<Home> {
         if (state is LoadedState) {
           final data = state.meals;
           return ListView.builder(
-            itemCount: data.categories!.length,
+            itemCount: data.meals!.length,
             itemBuilder: (context, index) => Card(
               child: ListTile(
-                title: Text(data.categories![index].strCategory!),
+                title: Text(data.meals![index].strMeal!),
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(data.categories![index].strCategoryThumb!),
+                  backgroundImage: NetworkImage(data.meals![index].strMealThumb!),
                 ),
               ),
             ),
@@ -49,11 +46,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    context.read<HomeCubit>().getMealsCategories();
+    context.read<FilterCubit>().getFilters(COOK.CATEGORIES, "Seafood");
   }
-
-
-
-
 
 }
