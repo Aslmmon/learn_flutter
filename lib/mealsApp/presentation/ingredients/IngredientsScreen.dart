@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/mealsApp/Constants.dart';
+import 'package:learn_flutter/mealsApp/common/theme/Theme.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesScreen.dart';
 import 'package:learn_flutter/mealsApp/presentation/chooser/chooser.dart';
 import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientState.dart';
+import 'package:learn_flutter/mealsApp/presentation/themeCubit.dart';
 
 class IngredientScreen extends StatefulWidget {
   const IngredientScreen({Key? key}) : super(key: key);
@@ -35,6 +37,8 @@ class _IngredientScreen extends State<IngredientScreen> {
                   child: ListTile(
                       title: GestureDetector(
                           onTap: (){
+                            context.read<ThemeCubit>().changeTheme(appThemeData[AppTheme.BlueDark]);
+
                             DataToBeSent dataToBeSent  = DataToBeSent(id: data.meals![index].strIngredient,cook: COOK.INGREDIENTS);
                             Navigator.of(context).pushNamed(filters_route,arguments: dataToBeSent);
                           },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/mealsApp/Constants.dart';
+import 'package:learn_flutter/mealsApp/common/theme/Theme.dart';
 import 'package:learn_flutter/mealsApp/presentation/area/AreaScreen.dart';
 import 'package:learn_flutter/mealsApp/presentation/area/AreaState.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesCubit.dart';
@@ -13,6 +14,8 @@ import 'package:learn_flutter/mealsApp/presentation/home/HomeCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/home/HomeState.dart';
 import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientsScreen.dart';
+import 'package:learn_flutter/mealsApp/presentation/themeCubit.dart';
+import 'package:learn_flutter/mealsApp/presentation/themeState.dart';
 import 'mealsApp/presentation/area/AreaCubit.dart';
 import 'mealsApp/presentation/categories/CategoriesState.dart';
 import 'mealsApp/presentation/filter/FilterStates.dart';
@@ -25,7 +28,9 @@ void main() {
         create: (context) => CategoriesCubit(InitialStateCategories())),
     BlocProvider(create: (context) => FilterCubit(InitialStateFilters())),
     BlocProvider(create: (context) => AreaCubit(InitialStateArea())),
-    BlocProvider(create: (context) => IngredientCubit(InitialStateIngredient()))
+    BlocProvider(create: (context) => IngredientCubit(InitialStateIngredient())),
+    BlocProvider(create: (context) => ThemeCubit(initialThemState(appThemeData[AppTheme.GreenLight])))
+
   ], child: MyApp()));
 }
 
@@ -46,18 +51,7 @@ class MyApp extends StatelessWidget {
         areas_route: (context) => const AreaScreen(),
         ingredients_route: (context) => const IngredientScreen()
       },
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
+      theme:context.read<ThemeCubit>().state.themeData,
     );
   }
 }
