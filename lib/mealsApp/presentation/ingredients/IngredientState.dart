@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:learn_flutter/mealsApp/data/model/ingredient_response.dart';
 import 'package:learn_flutter/mealsApp/data/model/meals_categories_response.dart';
+import 'package:learn_flutter/mealsApp/data/repository/MealsRepository.dart';
 
 enum IngredientStatus { loading, success, failure }
 
@@ -19,7 +20,7 @@ class LoadingState extends IngredientState {
 class LoadedState extends IngredientState {
   LoadedState(this.meals);
 
-  final IngredientResponse meals;
+  final List<UIView> meals;
 
   @override
   List<Object> get props => [meals];

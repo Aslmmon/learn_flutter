@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/mealsApp/Constants.dart';
+import 'package:learn_flutter/mealsApp/common/theme/TextTheme.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesState.dart';
 import 'package:learn_flutter/mealsApp/presentation/chooser/chooser.dart';
@@ -37,7 +38,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       DataToBeSent dataToBeSent  = DataToBeSent(id: data.meals![index].strCategory,cook: COOK.CATEGORIES);
                       Navigator.of(context).pushNamed(filters_route,arguments: dataToBeSent);
                     },
-                      child: Text(data.meals![index].strCategory!))),
+                      child: Text(data.meals![index].strCategory!,style: ThemeText.headerBody))),
             ),
           );
         } else {

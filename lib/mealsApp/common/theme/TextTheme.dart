@@ -11,10 +11,10 @@ abstract class ThemeText {
 
   static const TextStyle headerBody = TextStyle(
       fontFamily: 'Montserrat',
-      color: Colors.white,
+      color: Colors.black,
       fontSize: 10,
       height: 0.5,
-      fontWeight: FontWeight.w400);
+      fontWeight: FontWeight.bold);
 
   static const TextStyle headerFooter = TextStyle(
       fontFamily: 'Montserrat',
