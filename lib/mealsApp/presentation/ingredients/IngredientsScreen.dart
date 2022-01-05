@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:learn_flutter/mealsApp/Constants.dart';
-import 'package:learn_flutter/mealsApp/common/theme/TextTheme.dart';
 import 'package:learn_flutter/mealsApp/common/theme/Theme.dart';
-import 'package:learn_flutter/mealsApp/data/model/ingredient_response.dart';
-import 'package:learn_flutter/mealsApp/data/repository/MealsRepository.dart';
-import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesScreen.dart';
-import 'package:learn_flutter/mealsApp/presentation/chooser/chooser.dart';
+import 'package:learn_flutter/mealsApp/common/widgets/card/cardwidgets.dart';
 import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientState.dart';
 import 'package:learn_flutter/mealsApp/presentation/themeCubit.dart';
@@ -36,31 +31,15 @@ class _IngredientScreen extends State<IngredientScreen> {
           final data = state.meals;
           return ListView.builder(
             itemCount: data.length,
-            itemBuilder: (context, index) =>
-                Card(child: buildCardWidget(data, index, context)),
+            itemBuilder: (context, index) => buildCardWidget(data, index, context),
           );
         } else {
-          return const Center(child: Text("Heello"));
+          return const Center(child: Text(""));
         }
       }),
     );
   }
 
-  GestureDetector buildCardWidget(
-      List<UIView> data, int index, BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        DataToBeSent dataToBeSent = DataToBeSent(
-            id: data[index].title, cook: COOK.INGREDIENTS);
-        Navigator.of(context).pushNamed(filters_route, arguments: dataToBeSent);
-      },
-      child: ListTile(
-          title: Text(
-        data[index].title,
-        style: ThemeText.headerBody,
-      )),
-    );
-  }
 
   @override
   void initState() {

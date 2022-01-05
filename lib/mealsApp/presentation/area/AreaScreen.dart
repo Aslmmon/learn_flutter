@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/mealsApp/Constants.dart';
 import 'package:learn_flutter/mealsApp/common/theme/TextTheme.dart';
 import 'package:learn_flutter/mealsApp/common/theme/Theme.dart';
+import 'package:learn_flutter/mealsApp/common/widgets/card/cardwidgets.dart';
 import 'package:learn_flutter/mealsApp/presentation/area/AreaCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/area/AreaState.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesScreen.dart';
@@ -34,16 +35,8 @@ class _AreaScreen extends State<AreaScreen> {
             if (state is LoadedState) {
               final data = state.meals;
               return ListView.builder(
-                itemCount: data.meals!.length,
-                itemBuilder: (context, index) => Card(
-                  child: ListTile(
-                      title: GestureDetector(
-                          onTap: (){
-                            DataToBeSent dataToBeSent  = DataToBeSent(id: data.meals![index].strArea,cook: COOK.AREAS);
-                            Navigator.of(context).pushNamed(filters_route,arguments: dataToBeSent);
-                          },
-                          child: Text(data.meals![index].strArea!,style: ThemeText.headerBody))),
-                ),
+                itemCount: data.length,
+                itemBuilder: (context, index) => buildCardWidget(data, index, context),
               );
             } else {
               return const Center(child: Text("Heello"));

@@ -26,6 +26,6 @@ class MealsRepository {
 }
 class UIView{
   String title;
-  String id;
+  String? id ;
   UIView(this.title,this.id);
 }
