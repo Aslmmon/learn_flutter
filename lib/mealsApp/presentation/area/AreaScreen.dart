@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/mealsApp/Constants.dart';
-import 'package:learn_flutter/mealsApp/common/theme/TextTheme.dart';
+import 'package:learn_flutter/mealsApp/common/theme/ThemeText.dart';
 import 'package:learn_flutter/mealsApp/common/theme/Theme.dart';
 import 'package:learn_flutter/mealsApp/common/widgets/card/cardwidgets.dart';
 import 'package:learn_flutter/mealsApp/presentation/area/AreaCubit.dart';
@@ -36,7 +36,7 @@ class _AreaScreen extends State<AreaScreen> {
               final data = state.meals;
               return ListView.builder(
                 itemCount: data.length,
-                itemBuilder: (context, index) => buildCardWidget(data, index, context),
+                itemBuilder: (context, index) => buildCardWidget(data, index, context,COOK.AREAS),
               );
             } else {
               return const Center(child: Text("Heello"));

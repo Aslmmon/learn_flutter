@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/mealsApp/common/theme/Theme.dart';
 import 'package:learn_flutter/mealsApp/common/widgets/card/cardwidgets.dart';
+import 'package:learn_flutter/mealsApp/presentation/chooser/chooser.dart';
 import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientCubit.dart';
 import 'package:learn_flutter/mealsApp/presentation/ingredients/IngredientState.dart';
 import 'package:learn_flutter/mealsApp/presentation/themeCubit.dart';
@@ -31,7 +32,7 @@ class _IngredientScreen extends State<IngredientScreen> {
           final data = state.meals;
           return ListView.builder(
             itemCount: data.length,
-            itemBuilder: (context, index) => buildCardWidget(data, index, context),
+            itemBuilder: (context, index) => buildCardWidget(data, index, context,COOK.INGREDIENTS),
           );
         } else {
           return const Center(child: Text(""));

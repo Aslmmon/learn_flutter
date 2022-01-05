@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       initialRoute: chooser_route,
+      debugShowCheckedModeBanner: false,
       routes: {
         chooser_route: (context) => const Chooser(),
         home_route: (context) => const Home(),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_flutter/mealsApp/Constants.dart';
-import 'package:learn_flutter/mealsApp/common/theme/TextTheme.dart';
+import 'package:learn_flutter/mealsApp/common/theme/ThemeText.dart';
 
 class Chooser extends StatefulWidget {
   const Chooser({Key? key}) : super(key: key);
@@ -12,22 +12,36 @@ class Chooser extends StatefulWidget {
 
 class _ChooserState extends State<Chooser> {
   final PageController _controller =
-      PageController(initialPage: 0, viewportFraction: 0.9);
+      PageController(initialPage: 0, viewportFraction: 0.8);
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Choose your Type")),
-        body: PageView(
-          controller: _controller,
-          children: [
-            CardCookType(
-                CookType("Categories", COOK.CATEGORIES.value), context),
-            CardCookType(
-                CookType("Area", COOK.AREAS.value), context),
-            CardCookType(
-                CookType("Ingredients", COOK.INGREDIENTS.value), context),
-          ],
+        body: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ProfileWidget(),
+              SearchForm(),
+              CategoriesSection(),
+              // Container(
+              //   height: 250,
+              //   child: PageView(
+              //     controller: _controller,
+              //     children: [
+              //       CardCookType(
+              //           CookType("Categories", COOK.CATEGORIES.value), context),
+              //       CardCookType(CookType("Area", COOK.AREAS.value), context),
+              //       CardCookType(
+              //           CookType("Ingredients", COOK.INGREDIENTS.value), context),
+              //     ],
+              //   ),
+              // ),
+            ],
+          ),
         ));
 
     // GridView.count(
@@ -35,6 +49,61 @@ class _ChooserState extends State<Chooser> {
     //     children: List.generate(provideListOfCookType().length, (index) =>
     //         CardCookType(provideListOfCookType()[index], context)))
     // );
+  }
+
+  Container CategoriesSection() {
+    return Container(
+              margin: Margins.margin20,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text("Select a category",style: ThemeText.headerFont14),
+                  ListView.builder(
+                    itemCount: provideListOfCookType().length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          providePlaceHolder,
+                          Text("data")
+
+                        ],
+                      );
+                    },
+                  )
+                ],
+              ),
+            );
+  }
+
+  Container SearchForm() {
+    return Container(
+              margin: Margins.margin20,
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  fillColor: Colors.grey,
+                  border: OutlineInputBorder(
+                  ),
+                  labelText: 'Serch Products here..',
+                ),
+              ),
+            );
+  }
+
+  Container ProfileWidget() {
+    return Container(
+              margin: Margins.margin20,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text("Hello there,Ana!",style: ThemeText.headerFont24,),
+                  providePlaceHolder
+                ],
+              ),
+            );
   }
 
   List<CookType> provideListOfCookType() {
@@ -68,7 +137,7 @@ class _ChooserState extends State<Chooser> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 10),
-            Text(cookType.title,style: ThemeText.headerFont),
+            Text(cookType.title, style: ThemeText.headerFont30),
             SizedBox(height: 20)
           ],
         ),
