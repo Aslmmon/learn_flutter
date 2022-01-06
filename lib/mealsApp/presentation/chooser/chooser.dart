@@ -27,6 +27,7 @@ class _ChooserState extends State<Chooser> {
               ProfileWidget(),
               SearchForm(),
               CategoriesSection(),
+              popularSection()
               // Container(
               //   height: 250,
               //   child: PageView(
@@ -51,6 +52,38 @@ class _ChooserState extends State<Chooser> {
     // );
   }
 
+  Container popularSection() {
+    return Container(
+              margin: Margins.margin20,
+              child: Wrap(
+                direction: Axis.horizontal,
+                children: [
+                  Text("Popular",style: ThemeText.headerFont14),
+                  Container(
+                    height: 150,
+                    width: double.infinity,
+                    child: ListView.builder(
+                      itemCount: provideListOfCookType().length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Expanded(
+                          child: Column(
+                            children:  [
+                              providePlaceHolder(120,100),
+                              Text(provideListOfCookType()[index].title)
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  )
+
+                ],
+              ),
+            );
+  }
+
   Container CategoriesSection() {
     return Container(
               margin: Margins.margin20,
@@ -58,20 +91,25 @@ class _ChooserState extends State<Chooser> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text("Select a category",style: ThemeText.headerFont14),
-                  ListView.builder(
-                    itemCount: provideListOfCookType().length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          providePlaceHolder,
-                          Text("data")
+                  const Text("Select a category",style: ThemeText.headerFont14),
+                  SizedBoxConstraints.sizedBox10,
+                  Container(
+                    height: 100,
+                    width: double.infinity,
+                    child: ListView.builder(
+                      itemCount: provideListOfCookType().length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children:  [
+                            providePlaceHolder(50,50),
+                            Text(provideListOfCookType()[index].title)
 
-                        ],
-                      );
-                    },
+                          ],
+                        );
+                      },
+                    ),
                   )
                 ],
               ),
@@ -98,9 +136,9 @@ class _ChooserState extends State<Chooser> {
               margin: Margins.margin20,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("Hello there,Ana!",style: ThemeText.headerFont24,),
-                  providePlaceHolder
+                children:  [
+                  Text("Hello there,Ana!",style: ThemeText.headerFont24),
+                  providePlaceHolder(50,50),
                 ],
               ),
             );

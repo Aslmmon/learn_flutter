@@ -52,9 +52,9 @@ abstract class SizedBoxConstraints {
 abstract class Margins {
   static  const EdgeInsetsGeometry margin20 = EdgeInsets.only(top: 20,left: 10,right:10);
 }
- const providePlaceHolder =   Placeholder(
-    fallbackWidth: 50,
-    fallbackHeight: 50,
+  providePlaceHolder(double width, double height) =>   Placeholder(
+    fallbackWidth: width,
+    fallbackHeight: height,
     color: Colors.amberAccent,
     strokeWidth: 1.0
 );
