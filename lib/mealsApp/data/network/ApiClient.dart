@@ -54,6 +54,20 @@ class ApiClient {
     var mealsCategoriesJson = CheckForResponse(areaResponse);
     return MealsArea.fromJson(mealsCategoriesJson);
   }
+  Future<Iterable> getHomeRequest() async {
+    final ingredientRequest = Uri.https(_baseUrl, '/api/json/v1/1/list.php',
+        <String, String>{'i': "list"});
+    final areaRequest = Uri.https(_baseUrl, '/api/json/v1/1/list.php',
+        <String, String>{'a': "list"});
+    final responses = await Future.wait([_httpClient.get(areaRequest),_httpClient.get(ingredientRequest)]);
+    return [
+      CheckForResponse(responses[0]),
+      CheckForResponse(responses[1]),
+
+    ];
+    // var mealsCategoriesJson = CheckForResponse(areaResponse);
+    // return MealsArea.fromJson(mealsCategoriesJson);
+  }
 
   Future<IngredientResponse> getIngredients() async {
     final areaRequest = Uri.https(_baseUrl, '/api/json/v1/1/list.php',

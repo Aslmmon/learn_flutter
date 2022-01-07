@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/mealsApp/Constants.dart';
 import 'package:learn_flutter/mealsApp/common/theme/ThemeText.dart';
+import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesCubit.dart';
 
 class Chooser extends StatefulWidget {
   const Chooser({Key? key}) : super(key: key);
@@ -14,134 +16,145 @@ class _ChooserState extends State<Chooser> {
   final PageController _controller =
       PageController(initialPage: 0, viewportFraction: 0.8);
 
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         body: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ProfileWidget(),
-              SearchForm(),
-              CategoriesSection(),
-              popularSection()
-              // Container(
-              //   height: 250,
-              //   child: PageView(
-              //     controller: _controller,
-              //     children: [
-              //       CardCookType(
-              //           CookType("Categories", COOK.CATEGORIES.value), context),
-              //       CardCookType(CookType("Area", COOK.AREAS.value), context),
-              //       CardCookType(
-              //           CookType("Ingredients", COOK.INGREDIENTS.value), context),
-              //     ],
-              //   ),
-              // ),
-            ],
-          ),
-        ));
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+          ProfileWidget(),
+          SearchForm(),
+          CategoriesSection(),
+          popularSection(),
+          SearchSection()
+        ])));
+  }
 
-    // GridView.count(
-    //     crossAxisCount: 2,
-    //     children: List.generate(provideListOfCookType().length, (index) =>
-    //         CardCookType(provideListOfCookType()[index], context)))
-    // );
+  @override
+  void initState() {
+      context.read<CategoriesCubit>().getCategories();
   }
 
   Container popularSection() {
     return Container(
-              margin: Margins.margin20,
-              child: Wrap(
-                direction: Axis.horizontal,
-                children: [
-                  Text("Popular",style: ThemeText.headerFont14),
-                  Container(
-                    height: 150,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      itemCount: provideListOfCookType().length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Expanded(
-                          child: Column(
-                            children:  [
-                              providePlaceHolder(120,100),
-                              Text(provideListOfCookType()[index].title)
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  )
-
-                ],
-              ),
-            );
+      margin: Margins.margin20,
+      child: Wrap(
+        direction: Axis.horizontal,
+        children: [
+          Text("Popular", style: ThemeText.headerFont14),
+          Container(
+            height: 150,
+            width: double.infinity,
+            child: ListView.builder(
+              itemCount: provideListOfCookType().length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    providePlaceHolder(120, 100),
+                    Text(provideListOfCookType()[index].title)
+                  ],
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Container CategoriesSection() {
     return Container(
-              margin: Margins.margin20,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text("Select a category",style: ThemeText.headerFont14),
-                  SizedBoxConstraints.sizedBox10,
-                  Container(
-                    height: 100,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      itemCount: provideListOfCookType().length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children:  [
-                            providePlaceHolder(50,50),
-                            Text(provideListOfCookType()[index].title)
+      margin: Margins.margin20,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text("Select a category", style: ThemeText.headerFont14),
+          SizedBoxConstraints.sizedBox10,
+          Container(
+            height: 100,
+            width: double.infinity,
+            child: ListView.builder(
+              itemCount: provideListOfCookType().length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    providePlaceHolder(50, 50),
+                    Text(provideListOfCookType()[index].title)
+                  ],
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
-                          ],
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
-            );
+  Container SearchSection() {
+    return Container(
+      margin: Margins.margin20,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text("Search by Area", style: ThemeText.headerFont14),
+          SizedBoxConstraints.sizedBox10,
+          Container(
+            height: 100,
+            width: double.infinity,
+            child: ListView.builder(
+              itemCount: provideListOfCookType().length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    providePlaceHolder(50, 50),
+                    Text(provideListOfCookType()[index].title)
+                  ],
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Container SearchForm() {
     return Container(
-              margin: Margins.margin20,
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  fillColor: Colors.grey,
-                  border: OutlineInputBorder(
-                  ),
-                  labelText: 'Serch Products here..',
-                ),
-              ),
-            );
+      margin: Margins.margin20,
+      child: TextFormField(
+        decoration: const InputDecoration(
+          prefixIcon: Icon(Icons.search),
+          fillColor: Colors.grey,
+          border: OutlineInputBorder(),
+          labelText: 'Serch Products here..',
+        ),
+      ),
+    );
   }
 
   Container ProfileWidget() {
     return Container(
-              margin: Margins.margin20,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:  [
-                  Text("Hello there,Ana!",style: ThemeText.headerFont24),
-                  providePlaceHolder(50,50),
-                ],
-              ),
-            );
+      margin: Margins.margin20,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Hello there,Ana!", style: ThemeText.headerFont24),
+          providePlaceHolder(50, 50),
+        ],
+      ),
+    );
   }
 
   List<CookType> provideListOfCookType() {

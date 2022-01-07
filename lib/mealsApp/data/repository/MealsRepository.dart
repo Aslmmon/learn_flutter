@@ -8,24 +8,34 @@ import 'package:learn_flutter/mealsApp/data/model/meals_categories_response.dart
 import 'package:learn_flutter/mealsApp/data/network/ApiClient.dart';
 
 class MealsRepository {
-  MealsRepository({ApiClient? apiClient}) : _apiClient = apiClient ?? ApiClient();
+  MealsRepository({ApiClient? apiClient})
+      : _apiClient = apiClient ?? ApiClient();
 
   final ApiClient _apiClient;
 
 
+  Future<MealsCategoriesResponse> getMealsCategories() async =>
+      await _apiClient.getMealsCategories();
 
-  Future<MealsCategoriesResponse> getMealsCategories() async => await _apiClient.getMealsCategories();
-  Future<MealsCategories> getCategories() async => await _apiClient.getCategories();
+  Future<MealsCategories> getCategories() async =>
+      await _apiClient.getCategories();
 
   Future<MealsArea> getMealsArea() async => await _apiClient.getAreas();
 
-  Future<FilterResponse> getFilters(cookType,filterQuery) async => await _apiClient.getFilterData(cookType, filterQuery);
-  Future<IngredientResponse> getIngredients() async => await _apiClient.getIngredients();
+  Future<FilterResponse> getFilters(cookType, filterQuery) async =>
+      await _apiClient.getFilterData(cookType, filterQuery);
+
+  Future<IngredientResponse> getIngredients() async =>
+      await _apiClient.getIngredients();
+
+  Future<Iterable> getHomeRequests() async => await _apiClient.getHomeRequest();
 
 
 }
-class UIView{
+
+class UIView {
   String title;
-  String? id ;
-  UIView(this.title,this.id);
+  String? id;
+
+  UIView(this.title, this.id);
 }

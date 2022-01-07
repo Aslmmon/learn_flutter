@@ -17,6 +17,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     try {
       emit(LoadingState());
       final movies = await _mealsRepository.getCategories();
+
       emit(LoadedState(toSourceMapper(movies)));
     } catch (e){
       emit(ErrorState(e.toString()));
