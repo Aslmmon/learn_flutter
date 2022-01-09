@@ -11,16 +11,10 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   final MealsRepository _mealsRepository = MealsRepository(apiClient: ApiClient());
   final toSourceMapper = ToUIViewFromCategories();
 
-
-
   void getCategories() async {
     try {
       emit(LoadingState());
       final movies = await _mealsRepository.getCategories();
-
-
-
-
       emit(LoadedState(toSourceMapper(movies)));
     } catch (e){
       emit(ErrorState(e.toString()));

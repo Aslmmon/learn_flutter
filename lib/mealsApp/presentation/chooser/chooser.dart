@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/mealsApp/Constants.dart';
 import 'package:learn_flutter/mealsApp/common/theme/ThemeText.dart';
+import 'package:learn_flutter/mealsApp/common/widgets/card/cardwidgets.dart';
+import 'package:learn_flutter/mealsApp/data/repository/MealsRepository.dart';
+import 'package:learn_flutter/mealsApp/presentation/area/AreaCubit.dart';
+import 'package:learn_flutter/mealsApp/presentation/area/AreaState.dart';
 import 'package:learn_flutter/mealsApp/presentation/categories/CategoriesCubit.dart';
 
 class Chooser extends StatefulWidget {
@@ -28,7 +32,27 @@ class _ChooserState extends State<Chooser> {
                 children: [
           ProfileWidget(),
           SearchForm(),
-          CategoriesSection(),
+            BlocBuilder<AreaCubit, AreaState>(
+                builder: (context, state) {
+                  if (state is LoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (state is ErrorState) {
+                    return Center(
+                      child: Text(state.error),
+                    );
+                  }
+                  if (state is LoadedState) {
+                    final data = state.meals;
+                    return ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (context, index) => CategoriesSection(data),
+                    );
+                  } else {
+                    return const Center(child: Text("Heello"));
+                  }
+                  return Container(child: Text(""));
+                }),
           popularSection(),
           SearchSection()
         ])));
@@ -36,7 +60,7 @@ class _ChooserState extends State<Chooser> {
 
   @override
   void initState() {
-      context.read<CategoriesCubit>().getCategories();
+      context.read<AreaCubit>().getAreas();
   }
 
   Container popularSection() {
@@ -49,6 +73,8 @@ class _ChooserState extends State<Chooser> {
           Container(
             height: 150,
             width: double.infinity,
+
+
             child: ListView.builder(
               itemCount: provideListOfCookType().length,
               shrinkWrap: true,
@@ -68,7 +94,7 @@ class _ChooserState extends State<Chooser> {
     );
   }
 
-  Container CategoriesSection() {
+  Container CategoriesSection([List<UIView>? data]) {
     return Container(
       margin: Margins.margin20,
       child: Column(
@@ -88,7 +114,7 @@ class _ChooserState extends State<Chooser> {
                 return Column(
                   children: [
                     providePlaceHolder(50, 50),
-                    Text(provideListOfCookType()[index].title)
+                    Text(data[index].title)
                   ],
                 );
               },
